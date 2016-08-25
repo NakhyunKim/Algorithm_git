@@ -1,0 +1,55 @@
+
+	동적 계획법(Dynamic Programin)
+   - 분할 정복(Divie-Conquer)와 비슷
+   - 문제를 작은 단위로 나누고 이를 해결
+   - 차이점 : 중복된 계산을 다시 하지 않는다.
+   - 즉, 캐시를 사용하여 중복문제(overlapping subproblems)을 해결
+   
+ ex) 이항계수 ( n r ) = (n-1 r-1) + (n-1 r) 
+ 
+   - 단순한 분할정복 코드
+	int bino(int n, int r) 
+	{
+		if( r == 0 || n == r) return 1;
+		return bino(n-1, r-1) + bino(n-1, r);
+	}
+	
+   - 여기서 n과 r값이 커질 수록 중복 계산이 많아진다.
+   - 따라서 메모리제이션을 적용한다.
+    int cache[30][30];
+	int bino2(int n, int r) 
+	{
+		// 기저사례
+		if(r == 0 || n == r) return 1;
+		// -1이 아니라면 한 번 계산했던 값이니 곧장 반환
+		if(cache[n][r] != -1)
+			return cache[n][r];
+		//직접 계산한 뒤 배열에 저장
+		return cache[n][r] = bino2(n-1, r-1) + bino(n-1, r);
+	}
+	
+      메모리제이션
+	- 메모리제이션이란 함수의 결과를 저장하는 장소를 마련해 두고, 한번 계산한 값을 저장해
+	뒀다 재활용하는 최적화 기법
+	- 적용할수 있는 경우는 입력값에 의해 일정한 출력값이 나오는 경우
+	즉, 참조적 투명성(referential transparency)가 보장될때 사용 가능
+	- 메모리제이션 구현 패턴
+	 //전부 -1fh 초기화해 둔다
+	 int cache[2500][2500];
+	 //a와 b는 각각[0,2500) 구간 안의 정수
+	 //반환 값은 항상 int형 안에 들어가는 음이 아닌 정수.
+	 int someObscireFunction(int a, int b)
+	 {
+		//기저 사례를 처음에 처리한다.
+		if(...) return ...;
+		//(a,b)에 대한 답을 구한 적이 있으면 곧장 반환
+		int& ret = cache[a][b];
+		if(ret != -1) return ret;
+		//여기서 답을 계산하다.
+		...
+		return ret;
+	 }
+	 int main()
+	 {
+		memset(cache, -1, sizeof(cache));
+	 }
