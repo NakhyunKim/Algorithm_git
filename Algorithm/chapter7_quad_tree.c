@@ -81,12 +81,13 @@ int main(void)
 
 		for(j = 0; j < len; j++){
 			d[j].in = input[i][j];
-            printf("d[%d].in : %c input[%d][%d] : %c\n", j, d[j].in, i, j, input[i][j]);
+            //printf("d[%d].in : %c input[%d][%d] : %c\n", j, d[j].in, i, j, input[i][j]);
         }
 
 		Input_Data(input[i]);
 
 		reverse(d[0]);
+		printf("\n");
 
 	}
 
@@ -125,17 +126,17 @@ void reverse(Data out)
 
 	if(out.point[2]->in == 'x')
 		reverse(*out.point[2]);
-	printf("%c", out.point[2]->in);
+	else printf("%c", out.point[2]->in);
 
 	if(out.point[3]->in == 'x')
 		reverse(*out.point[3]);
-	printf("%c", out.point[3]->in);
+	else printf("%c", out.point[3]->in);
 
 	if(out.point[0]->in == 'x')
 		reverse(*out.point[0]);
-	printf("%c", out.point[0]->in);
+	else printf("%c", out.point[0]->in);
 
 	if(out.point[1]->in == 'x')
 		reverse(*out.point[1]);
-	printf("%c", out.point[1]->in);
+	else printf("%c", out.point[1]->in);
 }
